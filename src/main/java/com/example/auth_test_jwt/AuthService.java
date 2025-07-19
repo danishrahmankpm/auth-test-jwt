@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -27,7 +28,7 @@ public class AuthService {
         UserEntity user = repo.findById(username).orElseThrow();
         if (!encoder.matches(password, user.getPassword())) throw new RuntimeException("Bad creds");
 
-        return new org.springframework.security.core.userdetails.User(
+        return new User(
             user.getUsername(), user.getPassword(), List.of(new SimpleGrantedAuthority(user.getRole()))
         );
     }

@@ -32,4 +32,10 @@ public class AuthService {
             user.getUsername(), user.getPassword(), List.of(new SimpleGrantedAuthority(user.getRole()))
         );
     }
+    public UserDetails loadUserByUsername(String username) {
+        UserEntity user = repo.findById(username).orElseThrow();
+        return new User(
+            user.getUsername(), user.getPassword(), List.of(new SimpleGrantedAuthority(user.getRole()))
+        );
+    }
 }

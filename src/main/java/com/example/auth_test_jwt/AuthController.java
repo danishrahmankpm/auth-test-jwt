@@ -3,6 +3,7 @@ package com.example.auth_test_jwt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,6 +24,11 @@ public class AuthController {
         System.out.println("Login API hit with username: " + username);
         UserDetails user = authService.login(username, password);
         return ResponseEntity.ok(jwtUtil.generateToken(user));
+    }
+    @GetMapping("/hello")
+    public ResponseEntity<String> hello() {
+        System.out.println("Hello API hit");
+         return ResponseEntity.ok("Hello, authenticated user!");
     }
 }
 
